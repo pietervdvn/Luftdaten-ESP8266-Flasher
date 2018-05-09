@@ -20,6 +20,8 @@ else
   exit 1
 fi
 
+#esptool chip_id
+
 # Check if NodeMCU is connected to the computer
 if [ -z "${USB_DEVICE}" ]; then
   echo "USB Device ${RED} NOK: device not connected ${NOCOLOR}"
