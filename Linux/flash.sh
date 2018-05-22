@@ -20,7 +20,7 @@ else
   exit 1
 fi
 
-#esptool chip_id
+#esptool 	chip_id
 
 # Check if NodeMCU is connected to the computer
 if [ -z "${USB_DEVICE}" ]; then
@@ -43,24 +43,21 @@ fi
 
 # esptool -vv -cd nodemcu -cb 921600 -cp /dev/ttyUSB0 -ca 0x00000 -cf
 echo "Flashing identity readout to ${USB_DEVICE}"
-if esptool -vv -cd nodemcu -cb 921600 -ca 0x00000 -cp ${USB_DEVICE} \
-  -cf "$IDENTITY_READOUT"; then
+if esptool -vv -cd nodemcu -cb 921600 -ca 0x00000 -cp ${USB_DEVICE} -cf "$IDENTITY_READOUT"; then
   echo "Flashing   ${GREEN} OK ${NOCOLOR}"
 else
   echo "Flashing   ${RED} NOK ${NOCOLOR}"
   exit
 fi
 
-stty -F ${USB_DEVICE} 115200
+stty -F ${USB_DEVICE} 9600
 sleep 2
 ESP_ID=`cat ${USB_DEVICE}`
 
 
-
 # Flash the firmware to the ESP8266
 echo "Flashing firmware to ${USB_DEVICE}"
-if esptool -vv -cd nodemcu -cb 921600 -ca 0x00000 -cp ${USB_DEVICE} \
-  -cf "./$FIRMWARE_FILENAME"; then
+if esptool -vv -cd nodemcu -cb 921600 -ca 0x00000 -cp ${USB_DEVICE} -cf "./$FIRMWARE_FILENAME"; then
   echo "Flashing   ${GREEN} OK ${NOCOLOR}"
 else
   echo "Flashing   ${RED} NOK ${NOCOLOR}"
